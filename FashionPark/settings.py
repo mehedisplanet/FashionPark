@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'FashionPark.wsgi.application'
 
 DATABASES = {
     'default':dj_database_url.config(
-        default='postgres://smartlibrary_zwlw_user:Hrga2Bu4tPAVenakCUozL7Po7jdpyuYG@dpg-cmhc2tfqd2ns73fqo2qg-a.oregon-postgres.render.com/smartlibrary_zwlw',
+        default='postgres://fashionpark_user:OjEKZrUSRuAlnXfsT99w1dPtSM4ExMoC@dpg-cmksnken7f5s73auhuu0-a.oregon-postgres.render.com/fashionpark',
     )
 }
 
