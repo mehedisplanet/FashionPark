@@ -11,24 +11,26 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import environ
 env=environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+SECRET_KEY = env("SECRET_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8$h6ge%o6(!b-d_ut9528!*b49e5(dzh#847k(+u*2ul_ihda#'
+# SECRET_KEY = 'django-insecure-8$h6ge%o6(!b-d_ut9528!*b49e5(dzh#847k(+u*2ul_ihda#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS=['https://fashion-park.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
@@ -82,13 +84,18 @@ WSGI_APPLICATION = 'FashionPark.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+    'default':dj_database_url.config(
+        default='postgres://smartlibrary_zwlw_user:Hrga2Bu4tPAVenakCUozL7Po7jdpyuYG@dpg-cmhc2tfqd2ns73fqo2qg-a.oregon-postgres.render.com/smartlibrary_zwlw',
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
