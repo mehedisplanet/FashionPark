@@ -1,57 +1,102 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block stylesheet %}{% static 'css/product.css' %}{% endblock %}
 {% block head_title %}Fashion Park{% endblock %}
 {% block content %}
-{% load static %}
-<div class="flex flex-wrap">
-    <div class="w-full md:w-1/4 lg:w-1/5 xl:w-1/6 mb-4">
-        <div class="bg-white mt-10 rounded-md">
-            <div class="m-2">
-              <b><a class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800" href="?sort=price_Ascending">Sort by Price(Ascending)</a></b>
-              <b><a class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800" href="?sort=price_Descending">Sort by Price(Descending)</a></b>
-            </div>
-            <hr>
-            <div class="m-2">
-                <a href="/" class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800">All Colors</a>
-            </div>
-            {% for i in colors %}
-            <div class="m-2">
-                <a href="{% url 'color_wise_post' i.slug %}" class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800">{{ i.name }}</a>
-            </div>
-            {% endfor %}
-            <hr>
-            <div class="m-2">
-              <a href="/" class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800">All Size</a>
-          </div>
-            {% for i in sizes %}
-            <div class="m-2">
-                <a href="{% url 'size_wise_post' i.slug %}" class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800">{{ i.name }}</a>
-            </div>
-            {% endfor %}
-            <hr>
-        </div>
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/x.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/y.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/z.jpg' %}" class="d-block w-100" alt="...">
+      </div>
     </div>
-    <div class="relative w-full md:w-3/4 lg:w-4/5 xl:w-5/6">
-        <h4 class="mb-4 mx-10">{{ product | length }} results found</h4>
-        <div class="flex flex-wrap">
-            {% for i in product %}
-            <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-2">
-                <div class="bg-white rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100" style="width: 250px; height: 400px;">
-                  {% if i.image.url is not None %}
-                    <img src="{{ i.image.url }}" alt="{{ i.image.url }}" class="object-cover object-center w-full h-56 rounded-t-md dark:bg-gray-500" style="width: 100%; height: 200px;">
-                    {% endif %}
-                    <div class="p-4">
-                        <h2 class="text-xl lg:text-2xl font-semibold mb-2">{{ i.title }}</h2>
-                        <p class="dark:text-gray-100">Price: $ {{ i.price }}</p>
-                        <p class="dark:text-gray-100">Category: {{ i.category }}</p>
-                        <p class="dark:text-gray-100">Color: {{ i.color }}</p>
-                        <p class="dark:text-gray-100">Size : {{ i.size }}</p>
-                        <a href="{% url 'details' i.id %}" class="flex items-center justify-center w-full p-3 font-semibold tracki bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded">Read more</a>
-                    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-md navbar-light bg-blue-400 border-bottom">
+    <div class="container-fluid px-md-4">
+      <div class="d-flex w-100 navbar-collapse">
+            <a class="navbar-brand d-flex-inline" href="/">
+            <div class="container">
                 </div>
-            </div>
-            {% endfor %}
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="btn-outline-warning nav-item dropdown">
+                        <a class="text-white nav-link dropdown-toggle d-none d-md-block fw500" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Sort</a>
+                        <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
+                            <li>
+                              <b><a class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800" href="?sort=price_Ascending">Sort by Price(Ascending)</a></b>
+                              <b><a class="hover:bg-blue-700 hover:text-white block px-8 py-3 font-semibold rounded dark:bg-gray-100 dark:text-gray-800" href="?sort=price_Descending">Sort by Price(Descending)</a></b>
+                            </li>
+                        </ul>
+                </li>
+                <li class="btn-outline-success nav-item dropdown">
+                        <a class="text-white nav-link dropdown-toggle d-none d-md-block fw500" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Colors</a>
+                        <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/">All</a></li>
+                            {% for c in colors %}
+                            <li class="selected">
+                                <a class="dropdown-item" href="{% url 'color_wise_post' c.slug %}">{{ c.name }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                </li>
+                <li class="btn-outline-danger nav-item dropdown">
+                        <a class="text-white nav-link dropdown-toggle d-none d-md-block fw500" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Sizes</a>
+                        <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/">All</a></li>
+                            {% for c in sizes %}
+                            <li class="selected">
+                                <a class="dropdown-item" href="{% url 'size_wise_post' c.slug %}">{{ c.name }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                </li>
+            </ul>
+      </div>
+    </div>
+  </nav>
+{% endblock nav %}
+{% block product %}
 
+<div class="relative w-full">
+    <div class="flex flex-wrap justify-center items-center gap-10">
+        {% for i in product %}
+        <div class="card1">
+            <div class="imgBox">
+            <img src="{{i.image.url}}" alt="mouse corsair" class="mouse">
+            </div>
+            <div class="contentBox">
+                <div class="inline-text">
+                    <h3>{{i.color}}</h3>
+                    <h3>{{i.size}} Size </h3>
+                    <h3>{{i.title}}</h3>
+                </div>
+               <h2 class="Price text-white">€ {{i.price}}</h2>
+               <a href="{% url 'details' i.id %}" class="buy">Details</a>
+            </div>
         </div>
+        {% endfor %}
+
     </div>
 </div>
-{% endblock %}
+{% endblock product %}

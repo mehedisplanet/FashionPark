@@ -69,14 +69,18 @@ def UserLogout(request):
     return redirect('home')
 
 
-# def profile(request):
-#     user = Purchase.objects.filter(user=request.user)
-#     data = [purchase.product for purchase in user]
-#     return render(request, 'user/profile.html', {'data': data})
-
-
 class ProfileView(LoginRequiredMixin, ListView):
     template_name = 'user/profile.html'
+
+    def get(self, request):
+        user_purchases = Purchase.objects.filter(user=request.user)
+
+        return render(request, self.template_name, {
+            'user_purchases': user_purchases,
+        })
+    
+class BasketView(LoginRequiredMixin, ListView):
+    template_name = 'user/basket.html'
 
     def get(self, request):
         user_purchases = Purchase.objects.filter(user=request.user)
@@ -92,5 +96,7 @@ class WishlistView(LoginRequiredMixin, ListView):
         user_purchases = WishList.objects.filter(user=request.user)
 
         return render(request, self.template_name, {
-            'user_purchases': user_purchases,
+            'user_wishlist': user_purchases,
         })
+
+

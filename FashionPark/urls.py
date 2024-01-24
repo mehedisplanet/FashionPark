@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',HomeView.as_view(), name='home'),
+    path('category/<slug:category_slug>/', HomeView.as_view(), name='category_wise_post'),
     path('color/<slug:color_slug>/', HomeView.as_view(), name='color_wise_post'),
     path('size/<slug:size_slug>/', HomeView.as_view(), name='size_wise_post'),
     path('user/',include('user.urls')),

@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from product.models import Product,Color,Size
+from category.models import Category
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -12,6 +13,7 @@ class HomeView(TemplateView):
         product = Product.objects.all()
         color_slug = self.kwargs.get('color_slug')
         size_slug = self.kwargs.get('size_slug')
+        category_slug =  self.kwargs.get('category_slug')
         sort_option = self.request.GET.get('sort')
 
         if color_slug:
@@ -22,6 +24,10 @@ class HomeView(TemplateView):
             size = get_object_or_404(Size, slug=size_slug)
             product = Product.objects.filter(size=size)
 
+        if category_slug:
+            category = get_object_or_404(Category, slug=category_slug)
+            product = Product.objects.filter(category=category)
+
         if sort_option == 'price_Ascending':
             product = product.order_by('price')
         elif sort_option == 'price_Descending':
@@ -29,10 +35,11 @@ class HomeView(TemplateView):
         
         colors = Color.objects.all()
         sizes = Size.objects.all()
-        # product = product.order_by('price')
+        category = Category.objects.all()
 
         context['colors'] = colors
         context['sizes'] = sizes
         context['product'] = product
         context['sort_option'] = sort_option
+        context['categories'] = category
         return context
